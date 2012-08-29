@@ -48,11 +48,14 @@ function main(){
 	for (var i=0; i<layers.length; i++){
 		var layer = layers[i];
 		docRef.activeLayer = layer;
-		Stdlib.copyEffects(docRef, layer);
-		Stdlib.clearEffects(docRef, layer);
-		var bounds = Stdlib.getLayerBounds(docRef, layer);
-		Stdlib.pasteEffects(docRef, layer);
-		if (Stdlib.hasVectorMask(docRef, layer)) Stdlib.removeVectorMask(docRef, layer)
+		if (Stdlib.hasVectorMask(docRef, layer)) {
+			var bounds = Stdlib.getVectorMaskBounds(docRef, layer);
+			Stdlib.removeVectorMask(docRef, layer);
+		} else {
+			Stdlib.hideLayerEffects(docRef, layer);
+			var bounds = Stdlib.getLayerBounds(docRef, layer);
+			Stdlib.showLayerEffects(docRef, layer);
+		}
 		makeRCrectangle(bounds[1], bounds[0], bounds[3], bounds[2], radius );
 		Stdlib.createVectorMaskFromCurrentPath(docRef, layer);
 	}
