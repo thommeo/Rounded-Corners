@@ -72,10 +72,10 @@ function makeRCrectangle( top, left, bottom, right, radius ){
 		  ref1.putProperty( charIDToTypeID( "Path" ), charIDToTypeID( "WrPt" ) );
 	  desc.putReference( charIDToTypeID( "null" ), ref1 );
 		  var RDRdesc = new ActionDescriptor();
-		  RDRdesc.putUnitDouble( charIDToTypeID( "Top " ), charIDToTypeID( "#Rlt" ), top );
-		  RDRdesc.putUnitDouble( charIDToTypeID( "Left" ), charIDToTypeID( "#Rlt" ), left );
-		  RDRdesc.putUnitDouble( charIDToTypeID( "Btom" ), charIDToTypeID( "#Rlt" ), bottom );
-		  RDRdesc.putUnitDouble( charIDToTypeID( "Rght" ), charIDToTypeID( "#Rlt" ), right );
+		  RDRdesc.putUnitDouble( charIDToTypeID( "Top " ), charIDToTypeID( "#Rlt" ), top + 0.1);
+		  RDRdesc.putUnitDouble( charIDToTypeID( "Left" ), charIDToTypeID( "#Rlt" ), left + 0.1);
+		  RDRdesc.putUnitDouble( charIDToTypeID( "Btom" ), charIDToTypeID( "#Rlt" ), bottom + 0.1);
+		  RDRdesc.putUnitDouble( charIDToTypeID( "Rght" ), charIDToTypeID( "#Rlt" ), right + 0.1);
 		  RDRdesc.putUnitDouble( charIDToTypeID( "Rds " ), charIDToTypeID( "#Rlt" ), radius );
 	  desc.putObject( charIDToTypeID( "T   " ), charIDToTypeID( "Rctn" ), RDRdesc );
   executeAction( charIDToTypeID( "setd" ), desc, DialogModes.NO );
