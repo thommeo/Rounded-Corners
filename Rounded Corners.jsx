@@ -52,9 +52,13 @@ function main(){
 			var bounds = Stdlib.getVectorMaskBounds(docRef, layer);
 			Stdlib.removeVectorMask(docRef, layer);
 		} else {
-			Stdlib.hideLayerEffects(docRef, layer);
+			try { // for the case if there is no effects on the layer
+				Stdlib.hideLayerEffects(docRef, layer);
+			} catch(e){}
 			var bounds = Stdlib.getLayerBounds(docRef, layer);
-			Stdlib.showLayerEffects(docRef, layer);
+			try { // for the case if there is no effects on the layer
+				Stdlib.showLayerEffects(docRef, layer);
+			} catch(e){}
 		}
 		makeRCrectangle(bounds[1], bounds[0], bounds[3], bounds[2], radius );
 		Stdlib.createVectorMaskFromCurrentPath(docRef, layer);
