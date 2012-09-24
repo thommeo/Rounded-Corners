@@ -60,27 +60,24 @@ function main(){
 				Stdlib.showLayerEffects(docRef, layer);
 			} catch(e){}
 		}
-		makeRCrectangle(bounds[1], bounds[0], bounds[3], bounds[2], radius );
+		// This fixes an issue for the documents that have resolution other then 72 dpi
+		var resolutionRatio = 72 / docRef.resolution;
+		makeRCrectangle(bounds[1] * resolutionRatio, bounds[0] * resolutionRatio, bounds[3] * resolutionRatio, bounds[2] * resolutionRatio, radius * resolutionRatio);
 		Stdlib.createVectorMaskFromCurrentPath(docRef, layer);
 	}
 
 }
 
-function makeRCrectangle( top, left, bottom, right, radius ){
+function makeRCrectangle( top, left, bottom, right, radius, resolution ){
 	  var desc = new ActionDescriptor();
 		  var ref1 = new ActionReference();
 		  ref1.putProperty( charIDToTypeID( "Path" ), charIDToTypeID( "WrPt" ) );
 	  desc.putReference( charIDToTypeID( "null" ), ref1 );
 		  var RDRdesc = new ActionDescriptor();
-		  // RDRdesc.putUnitDouble( charIDToTypeID( "Top " ), charIDToTypeID( "#Rlt" ), top + 0.1);
-		  // RDRdesc.putUnitDouble( charIDToTypeID( "Left" ), charIDToTypeID( "#Rlt" ), left + 0.1);
-		  // RDRdesc.putUnitDouble( charIDToTypeID( "Btom" ), charIDToTypeID( "#Rlt" ), bottom + 0.1);
-		  // RDRdesc.putUnitDouble( charIDToTypeID( "Rght" ), charIDToTypeID( "#Rlt" ), right + 0.1);
 		  RDRdesc.putUnitDouble( charIDToTypeID( "Top " ), charIDToTypeID( "#Rlt" ), top );
 		  RDRdesc.putUnitDouble( charIDToTypeID( "Left" ), charIDToTypeID( "#Rlt" ), left );
 		  RDRdesc.putUnitDouble( charIDToTypeID( "Btom" ), charIDToTypeID( "#Rlt" ), bottom );
 		  RDRdesc.putUnitDouble( charIDToTypeID( "Rght" ), charIDToTypeID( "#Rlt" ), right );
-
 		  RDRdesc.putUnitDouble( charIDToTypeID( "Rds " ), charIDToTypeID( "#Rlt" ), radius );
 	  desc.putObject( charIDToTypeID( "T   " ), charIDToTypeID( "Rctn" ), RDRdesc );
   executeAction( charIDToTypeID( "setd" ), desc, DialogModes.NO );
